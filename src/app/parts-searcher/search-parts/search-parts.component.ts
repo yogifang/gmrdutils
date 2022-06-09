@@ -16,7 +16,7 @@ export class SearchPartsComponent implements OnInit {
   partsNumber :string = '';
   itemName: string ='' ;
   updateDate: string ='' ;
-  bomFileName: string = '';
+  stockFileName: string = '';
 
   data: AOA = [[1, 2], [3, 4]];
   resultData : AOA = [] ;
@@ -38,11 +38,10 @@ export class SearchPartsComponent implements OnInit {
     const target: DataTransfer = <DataTransfer>(evt.target);
     if (target.files.length !== 1) throw new Error('Cannot use multiple files');
     const reader: FileReader = new FileReader();
-
     reader.onload = (e: any) => {
       /* read workbook */
       const bstr: string = e.target.result;
-      this.bomFileName = evt.target.files[0].name ;
+      this.stockFileName = evt.target.files[0].name ;
       const wb: XLSX.WorkBook = XLSX.read(bstr, { type: 'binary' });
 
       /* grab first sheet */
@@ -61,7 +60,8 @@ export class SearchPartsComponent implements OnInit {
         }
       })
 
-      console.log(this.data);
+   //   console.log(this.data);
+     this.queryItems(null);
     };
     reader.readAsBinaryString(target.files[0]);
   }
@@ -75,6 +75,7 @@ export class SearchPartsComponent implements OnInit {
     this.resultData = [];
     this.data.map(item => {
       if(item[0] !== undefined && item[0] !== null) {
+
         if (item[0].toLowerCase().includes(this.partsNumber.toLocaleLowerCase()) || this.partsNumber === '') {
            if (item[1].toLowerCase().includes(this.itemName.toLocaleLowerCase()) || this.itemName === '') {
             this.resultData.push(item);

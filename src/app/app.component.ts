@@ -12,6 +12,8 @@ export class AppComponent {
   title = '金戰神';
 
   bSearchParts: boolean = false;
+  bBuildBom:boolean = false;
+  bAttendance: boolean = false;
 
 OnInit() {
   const firebaseConfig = {
@@ -28,9 +30,27 @@ const app = initializeApp(firebaseConfig);
 const analytics = getAnalytics(app);
 }
 
+  clearAllButtons () {
+    this.bSearchParts = false;
+    this.bBuildBom = false;
+    this.bAttendance = false;
+  }
   clickSearch(event:any) {
+    this.clearAllButtons();
     this.bSearchParts = true;
      console.log(event);
+  }
+
+  clickBuildBom(event: any) {
+    this.clearAllButtons();
+    this.bBuildBom = true;
+    console.log(this.bBuildBom);
+  }
+
+  clickAttendanceInput(event: any) {
+    this.clearAllButtons();
+    this.bAttendance = true;
+    console.log(event);
   }
 
 }

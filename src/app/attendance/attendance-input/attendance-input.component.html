@@ -1,0 +1,28 @@
+<form class="attendance-form">
+  <tr><mat-form-field class="example-full-width" appearance="fill" >
+    <mat-label>應到</mat-label>
+    <input matInput #postalCode maxlength="3" placeholder="應到" value="10" type="number" (change)="inputChanged($event)" name="all">
+    <mat-hint align="end"></mat-hint>
+  </mat-form-field></tr>
+  <td><mat-form-field class="example-full-width" appearance="fill">
+    <mat-label>特休</mat-label>
+    <input matInput #postalCode maxlength="3" placeholder="特休" value="0" type="number" (change)="inputChanged($event)" name="special">
+    <mat-hint align="end"></mat-hint>
+  </mat-form-field></td>
+  <td><mat-form-field class="example-full-width" appearance="fill" type="number">
+    <mat-label>事假</mat-label>
+    <input matInput #postalCode maxlength="3" placeholder="事假" value="0" type="number" (change)="inputChanged($event)" name="business">
+    <mat-hint align="end"></mat-hint>
+  </mat-form-field></td>
+  <td><mat-form-field class="example-full-width" appearance="fill">
+    <mat-label>病假</mat-label>
+    <input matInput #postalCode maxlength="3" placeholder="病假" value="0" type="number" (change)="inputChanged($event)" name="sick">
+    <mat-hint align="end"></mat-hint>
+  </mat-form-field></td>
+  <tr><mat-form-field class="example-full-width" appearance="fill">
+    <mat-label>實到</mat-label>
+    <input matInput #postalCode maxlength="3" placeholder="實到" [value]="real" type="number" name="real" [readonly]="true">
+    <mat-hint align="end"></mat-hint>
+  </mat-form-field></tr>
+  <button mat-button  type="button" mat-raised-button color="primary" (click)="sendData($event)">顯示</button>
+</form>

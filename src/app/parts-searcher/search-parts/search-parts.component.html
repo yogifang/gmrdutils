@@ -21,15 +21,15 @@
 <!-- <mat-form-field class="example-form-field" appearance="fill"> -->
   <!-- <input matInput type="file" (change)="onFileChange($event)" multiple="false" /> -->
 <!-- </mat-form-field> -->
-<div>{{bomFileName}}   {{updateDate}}</div>
+<div>{{stockFileName}}   {{updateDate}}</div>
 	<table class="sjs-table">
-		<tbody *ngIf="resultData.length===0">
-      <tr *ngFor="let row of data">
-			<td *ngFor="let val of row">
-				{{val}}
-			</td>
-		</tr>
-    </tbody>
+		<!-- <tbody *ngIf="resultData.length===0"> -->
+      <!-- <tr *ngFor="let row of data"> -->
+			<!-- <td *ngFor="let val of row"> -->
+				<!-- {{val}} -->
+			<!-- </td> -->
+		<!-- </tr> -->
+    <!-- </tbody> -->
     <tbody *ngIf="resultData.length>0">
       <tr *ngFor="let row of resultData">
 			<td *ngFor="let val of row">

@@ -13,11 +13,19 @@ import {MatButtonModule} from '@angular/material/button';
 import {MatDialogModule} from '@angular/material/dialog';
 import { CUSTOM_ELEMENTS_SCHEMA } from '@angular/core';
 import { PartsSearcherModule } from './parts-searcher/parts-searcher.module';
+import { BomBuilderModule } from './bom-builder/bom-builder.module';
+import { BuildBomComponent } from './bom-builder/build-bom/build-bom.component';
+import { AttendanceInputComponent } from './attendance/attendance-input/attendance-input.component';
+import { AttendanceModule } from './attendance/attendance.module';
+
+
 
 @NgModule({
   declarations: [
     AppComponent,
-    SearchPartsComponent
+    SearchPartsComponent,
+    BuildBomComponent,
+    AttendanceInputComponent
   ],
   imports: [
     BrowserModule,
@@ -29,8 +37,12 @@ import { PartsSearcherModule } from './parts-searcher/parts-searcher.module';
     MatButtonModule,
     MatInputModule,
     PartsSearcherModule,
+    BomBuilderModule,
+    AttendanceModule,
     RouterModule.forRoot([
       {path: 'search-parts', component: SearchPartsComponent},
+      {path: 'build-bom', component: BuildBomComponent},
+      {path: 'attendance-input', component: AttendanceInputComponent},
 
     ]),
     BrowserAnimationsModule
