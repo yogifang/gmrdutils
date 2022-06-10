@@ -1,13 +1,12 @@
 import { Component, OnDestroy, OnInit } from '@angular/core';
-import {IMqttMessage, MqttService} from 'ngx-mqtt';
-import { Subscription } from 'rxjs';
-
+import { webSocket } from 'rxjs/webSocket';
 
 
 @Component({
   selector: 'app-attendance-input',
   templateUrl: './attendance-input.component.html',
-  styleUrls: ['./attendance-input.component.scss']
+  styleUrls: ['./attendance-input.component.scss'],
+
 })
 
 
@@ -15,22 +14,23 @@ import { Subscription } from 'rxjs';
 
 export class AttendanceInputComponent implements OnDestroy {
 
- allPerson: number = 0 ;
+ allPerson: number = 10 ;
  special: number = 0 ;
  sick: number = 0;
  business: number = 0 ;
  real: number = 0 ;
 
- private subscription: Subscription;
- public message!: string;
 
- constructor(private _mqttService: MqttService) {
-  this.subscription = this._mqttService.observe('Attendance').subscribe((message: IMqttMessage) => {
-    this.message = message.payload.toString();
-  });
+ subject = webSocket('ws://192.168.1.212:1880/attendance');
+ title = 'socketrv';
+
+
+
+ constructor() {
+
 }
   ngOnDestroy(): void {
-    this.subscription.unsubscribe();
+    this.subject.unsubscribe();
   }
 
 
@@ -62,17 +62,21 @@ inputChanged(event: any): void {
 }
 
 
-public unsafePublish(topic: string, message: string): void {
-  this._mqttService.unsafePublish(topic, message, {qos: 1, retain: true});
-}
+sendMsg(data:string) {
 
+  this.subject.subscribe();
+  this.subject.next(data);
+  console.log(data);
+  this.subject.complete();
+}
 
  sendData(data: any): void {
 
+  this.real = this.allPerson - this.special - this.sick - this.business;
+  let strMqtt = JSON.stringify({allPerson: this.allPerson, special: this.special, sick: this.sick, business: this.business, real: this.real});
 
-  var strMqtt:string = JSON.stringify({allPerson: this.allPerson, special: this.special, sick: this.sick, business: this.business, real: this.real});
-  this.unsafePublish('Attendance', "strMqtt");
-  console.log(strMqtt);
+  this.sendMsg(strMqtt);
+
 
  }
 

@@ -1,13 +1,13 @@
 import { TestBed } from '@angular/core/testing';
 
-import { EventMqttService } from './event.mqtt.service';
+import { WebscoketService } from './webscoket.service';
 
-describe('Event.MqttService', () => {
-  let service: EventMqttService;
+describe('WebscoketService', () => {
+  let service: WebscoketService;
 
   beforeEach(() => {
     TestBed.configureTestingModule({});
-    service = TestBed.inject(EventMqttService);
+    service = TestBed.inject(WebscoketService);
   });
 
   it('should be created', () => {
