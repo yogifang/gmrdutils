@@ -21,7 +21,7 @@ export class AttendanceInputComponent implements OnDestroy {
  real: number = 0 ;
 
  subject1 = webSocket('ws://192.168.1.212:1880/attendance');
- subject2 = webSocket('ws://192.168.1.212:1880/attendance');
+ subject2 = webSocket('ws://192.168.1.212:1880/works');
 
  stockFileName: string = '';
  data: AOA = [[1, 2], [3, 4]];
@@ -131,7 +131,7 @@ sendMsg(data:string) {
     this.data = [];
     const today =  new Date();
     const week = this.chineseDay(today.getDay());
-
+    console.log("onload");
     res.map(item => {
       if(item[1] !== undefined && item[1] !== null  && item[1] !== "星期") {
         console.log(item[1]);

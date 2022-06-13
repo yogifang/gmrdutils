@@ -16,7 +16,7 @@
 <button mat-button  type="button" mat-raised-button color="primary" (click)="queryItems($event)">查詢</button>
 
 <button type="button" mat-raised-button (click)="fileInput.click()">選擇檔案</button>
-<input hidden (change)="onFileChange($event)" #fileInput type="file" id="file">
+<input hidden onclick="this.value = null" (change)="onFileChange($event)" #fileInput type="file" id="file" >
 
 <!-- <mat-form-field class="example-form-field" appearance="fill"> -->
   <!-- <input matInput type="file" (change)="onFileChange($event)" multiple="false" /> -->

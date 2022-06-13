@@ -1,9 +1,9 @@
 
 
 <button type="button" mat-raised-button color="primary" (click)="fileInputStock.click()">選擇庫存檔案</button>
-<input hidden (change)="onFileChange($event)" #fileInputStock type="file" id="stockfile">
+<input hidden onclick="this.value = null" (change)="onFileChange($event)" #fileInputStock type="file" id="stockfile">
 <button type="button" mat-raised-button color="secondary" (click)="fileInputBom.click()">選擇bom檔案</button>
-<input hidden (change)="onBomChange($event.target)" #fileInputBom type="file" id="bomfile">
+<input hidden onclick="this.value = null" (change)="onBomChange($event.target)" #fileInputBom type="file" id="bomfile">
 <button mat-button  type="button" mat-raised-button color="primary" (click)="onBuildBom($event)">查詢</button>
 <div>{{stockFileName}}   {{updateDate}}</div>
 <div>{{bomFileName}}   {{updateDate}}</div>

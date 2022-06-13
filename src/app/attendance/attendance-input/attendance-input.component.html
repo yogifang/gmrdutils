@@ -28,6 +28,6 @@
 
 
   <button type="button" mat-raised-button color="primary" (click)="fileInputStock.click()">排程</button>
-<input hidden (change)="onFileChange($event)" #fileInputStock type="file" id="stockfile">
+<input hidden onclick="this.value = null" (change)="onFileChange($event)" #fileInputStock type="file" id="schedule">
 
 </form>
