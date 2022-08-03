@@ -109,8 +109,13 @@ export class BuildBomComponent implements OnInit {
     }
 
    getFileName = (name: any) => {
-      let timeSpan = new Date().toISOString();
-      let sheetName = name || "MartinBom";
+      let timeSpan = new Date().toLocaleDateString();
+
+      let sheetName = name.slice(0,name.search('BOM')-8)+"BOM" || "MartianBom";
+
+      if(sheetName.length > 31) {
+        alert("sheetName is too long");
+      }
       let fileName = `${sheetName}-${timeSpan}`;
       return {
         sheetName,
