@@ -1,0 +1,33 @@
+<mat-form-field class="example-form-field" appearance="fill">
+  <mat-label>零件料號</mat-label>
+  <input matInput type="text" [(ngModel)]="partsNumber">
+  <button *ngIf="partsNumber" matSuffix mat-icon-button aria-label="Clear" (click)="partsNumber=''">
+    <mat-icon>清除</mat-icon>
+  </button>
+</mat-form-field>
+
+<button mat-button  type="button" mat-raised-button color="primary" (click)="queryItems($event)">查詢</button>
+
+<button type="button" mat-raised-button (click)="fileInput.click()">選擇檔案</button>
+<input hidden onclick="this.value = null" (change)="onFileChange($event)" #fileInput type="file" id="file" >
+
+<!-- <mat-form-field class="example-form-field" appearance="fill"> -->
+  <!-- <input matInput type="file" (change)="onFileChange($event)" multiple="false" /> -->
+<!-- </mat-form-field> -->
+<div>{{stockFileName}} </div>
+	<table class="sjs-table">
+		<!-- <tbody *ngIf="resultData.length===0"> -->
+      <!-- <tr *ngFor="let row of data"> -->
+			<!-- <td *ngFor="let val of row"> -->
+				<!-- {{val}} -->
+			<!-- </td> -->
+		<!-- </tr> -->
+    <!-- </tbody> -->
+    <tbody *ngIf="resultData.length>0">
+      <tr *ngFor="let row of resultData">
+			<td *ngFor="let val of row">
+				{{val}}
+			</td>
+		</tr>
+    </tbody>
+	</table>

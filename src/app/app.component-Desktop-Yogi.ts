@@ -14,7 +14,6 @@ export class AppComponent {
   bSearchParts: boolean = false;
   bBuildBom:boolean = false;
   bAttendance: boolean = false;
-  bRMA: boolean = false;
 
 OnInit() {
   const firebaseConfig = {
@@ -53,9 +52,5 @@ const analytics = getAnalytics(app);
     this.bAttendance = true;
     console.log(event);
   }
-  clickRmaInput(event: any) {
-    this.clearAllButtons();
-    this.bRMA = true;
-    console.log(event);
-  }
+
 }

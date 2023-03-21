@@ -17,8 +17,7 @@ import { BomBuilderModule } from './bom-builder/bom-builder.module';
 import { BuildBomComponent } from './bom-builder/build-bom/build-bom.component';
 import { AttendanceInputComponent } from './attendance/attendance-input/attendance-input.component';
 import { AttendanceModule } from './attendance/attendance.module';
-import { RmaSeacherModule } from './rma-seacher/rma-seacher.module';
-import { SearchRmaComponent } from './rma-seacher/search-rma/search-rma.component';
+
 
 
 @NgModule({
@@ -26,8 +25,7 @@ import { SearchRmaComponent } from './rma-seacher/search-rma/search-rma.componen
     AppComponent,
     SearchPartsComponent,
     BuildBomComponent,
-    AttendanceInputComponent,
-    SearchRmaComponent
+    AttendanceInputComponent
   ],
   imports: [
     BrowserModule,
@@ -45,7 +43,6 @@ import { SearchRmaComponent } from './rma-seacher/search-rma/search-rma.componen
       {path: 'search-parts', component: SearchPartsComponent},
       {path: 'build-bom', component: BuildBomComponent},
       {path: 'attendance-input', component: AttendanceInputComponent},
-      {path: 'search-input', component: SearchRmaComponent}
 
     ]),
     BrowserAnimationsModule
