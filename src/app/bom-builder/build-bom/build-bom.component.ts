@@ -1,3 +1,4 @@
+import { _isNumberValue } from '@angular/cdk/coercion';
 import { Component, OnInit } from '@angular/core';
 import * as XLSX from 'xlsx';
 
@@ -122,6 +123,49 @@ export class BuildBomComponent implements OnInit {
         fileName
       };
     };
+
+ getResisterValue(bomValue: string): string {
+    const inStr = bomValue.split("_") ;
+    const partValue = inStr.toString().toLowerCase() ;
+    var exp = 0 ;
+    var pre = "****" ;
+    if( partValue.includes("k")) {
+       exp = 2 ; // if there is a K Exponentiation = 2
+                    // we have 4 digits for resister value
+                    // 3 digits for value last 1 digits is Exponentiation
+                    // example 1K  => 1000 10K => 1002 100K => 1003
+                    // 6.8K => 6802
+                    //
+       pre = partValue.substring(0, partValue.indexOf("k")) ;
+      if(pre.includes(".") || pre.includes("r")){
+        pre.replace(".","") ;
+        pre.replace("r","") ;
+        exp = exp-1 ;
+      }
+
+        const len = pre.length ;
+        switch(len) {
+          case 1:
+            pre = "00" + pre + exp.toString().substring(0,1) ;
+            break ;
+          case 2:
+            pre = "0" + pre + exp.toString().substring(0,1) ;
+            break ;
+          case 3:
+            pre = pre + exp.toString().substring(0,1) ;
+            break ;
+          default:
+            pre = "@@@@" + exp.toString().substring(0,1) ;
+            break ;
+        }
+
+
+
+    }
+
+    return pre.toString() ;
+ }
+
  exportArrayToExcel(arr: any[], name?: string) {
       let { sheetName, fileName } = this.getFileName(name);
 
@@ -135,6 +179,7 @@ onBuildBom(evt:any) {
 
   for (var i = 0; i < this.bomContent.length; i++) {
 
+    /*
     if(this.bomContent[i][3] !== undefined && this.bomContent[i][3] !== null) {
 
       const strDescript = this.remove_non_ascii(this.bomContent[i][3]).toLocaleLowerCase();
@@ -146,9 +191,23 @@ onBuildBom(evt:any) {
       } else {
         this.bomContent[i].push("--new parts--");
       }
-
-
     }
+*/
+   // process Resisters
+
+     if(this.bomContent[i][2] !== undefined && this.bomContent[i][2] !== null) {
+      if(this.bomContent[i][2].toString()[0] === "R") {
+        if(_isNumberValue(this.bomContent[i][2].toString()[1])) {
+           const hd = "CR" ;
+           const many = "1" ;
+           const value = this.getResisterValue(this.bomContent[i][3]) ;
+           debugger
+           // console.log(i) ;
+           // debugger
+        }
+
+      }
+     }
 
   }
 
