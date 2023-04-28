@@ -3,6 +3,11 @@ import { Injectable } from '@angular/core';
 @Injectable({
   providedIn: 'root'
 })
+
+
+// resister code stand must be value_torrance_power_type
+// size will be wiriten in the footprint
+
 export class EncodeResisterService {
 
 
@@ -125,6 +130,99 @@ private getResRoHS(type: string): string {
 
   }
 
+  private getResValue( v: string): string {
+      var r:string = "0000" ;
+      const tempV : string = v.trim() ; // remove spaces and tabs
+      const pureV : string = tempV.slice(0,tempV.indexOf("_")) ;// remove _
+
+      if( !pureV.includes("R") && !pureV.includes("K") && !pureV.includes("M")) { // no K no R must 1R ~ 999R
+        const len:number = pureV.length ; // get the length of the value
+        switch(len) {
+          case 1:   // 0R ~ 9R00
+            r =  pureV + "00" + "B" ; // B = 10-2
+            break ;
+          case 2:  // 10R ~ 99R
+            r =  pureV + "0" + "A" ; // A = 10-1
+            break ;
+          case 3: // 100R ~ 999R
+            r =  pureV + "0" ;
+            break ;
+
+          default:
+            r = "xxxx" ;
+            break ;
+        }
+
+      }
+
+      if(pureV.includes("R")){   // 1R01 ~99R9
+        const pre:string = pureV.slice(0,pureV.indexOf("R")) ;
+        const tail:string = pureV.slice(pureV.indexOf("R")+1,pureV.length) ;
+        const lenPre:number = pre.length ; // get the length of the value
+        const lenTail:number = tail.length ; // get the length of the value
+        switch(lenPre) {
+          case 1: // 0R01 ~ 9R99
+            r =  pre + tail + "B" ;  // B = 10-2
+            if(pre == "0") {
+              if( lenTail == 1) {
+                r = tail + "00" + "C" ;  // C = 10-3
+               }
+               if( lenTail == 2) {
+                r = tail + "0" + "C" ;  // C = 10-3
+               }
+            }
+            break ;
+          case 2:  //10R1 ~ 99R9
+            r =  pre + tail + "A" ;
+            break ;
+          case 3:
+            r =  pre   + "0" ;
+            break ;
+          default:
+            r = "xxxx" ;
+        }
+      }
+      if(pureV.includes("K")){
+        const pre:string = pureV.slice(0,pureV.indexOf("K")) ;
+        const tail:string = pureV.slice(pureV.indexOf("K")+1,pureV.length) ;
+        const lenPre:number = pre.length ; // get the length of the value
+      //  const lenTail:number = tail.length ; // get the length of the value
+        switch(lenPre) {
+          case 1:  //1K01 ~ 9K99
+            r =  pre + tail + "1" ;
+            break ;
+          case 2: //10K1 ~ 99K9
+            r =  pre + tail + "2" ;
+            break ;
+          case 3: //100K ~ 999K
+            r =  pre   + "3" ;
+            break ;
+          default:
+            r = "xxxx" ;
+        }
+      }
+      if(pureV.includes("M")){
+        const pre:string = pureV.slice(0,pureV.indexOf("M")) ;
+        const tail:string = pureV.slice(pureV.indexOf("M")+1,pureV.length) ;
+        const lenPre:number = pre.length ; // get the length of the value
+    //    const lenTail:number = tail.length ; // get the length of the value
+
+        switch(lenPre) {
+          case 1: //1M01 ~ 9M99
+            r =  pre + tail + "4" ;
+            break ;
+          case 2:
+            r =  pre + tail + "5" ;
+            break ;
+          case 3:
+            r =  pre   + "6" ;
+            break ;
+          default:
+            r = "xxxx" ;
+        }
+      }
+      return r ;
+  }
 
   public getResisterCode(value: string , footprint:string) :string {
     var r:string = "";
