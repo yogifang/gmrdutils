@@ -21,6 +21,8 @@ export class BuildBomComponent implements OnInit {
   data: AOA = [[1, 2], [3, 4]];
   resultData : AOA = [] ;
   bomContent: AOA = [];
+  nItems: any;
+
 
   constructor() { }
 
@@ -65,8 +67,8 @@ export class BuildBomComponent implements OnInit {
       const fileList = evt.files ;
       const file = fileList[0] ;
       this.bomFileName = file.name ;
-      this.resultData = [] ;
       this.bomContent = [];
+
       let fileReader: FileReader = new FileReader();
       let self = this;
       fileReader.onload = (e: any) => {
@@ -76,7 +78,7 @@ export class BuildBomComponent implements OnInit {
         lines?.map(line => {
           const items = line.slice(0,-1).split('\t');
           if(items.length > 4) {
-            while(items[3] === items[4] && items[3].length == 0) {
+            while(items[3] === items[4]) {
               items.splice(4,1);
              }
           }
@@ -87,30 +89,34 @@ export class BuildBomComponent implements OnInit {
               let wordWrap: any= self.bomContent?.slice(-1).pop();
               wordWrap[2] = wordWrap[2] + items[2].substring(0,items[2].length);
             } else {
-             self.bomContent.push(items);
+              self.bomContent.push(items);
             }
-
           }
         })
-     //   console.log(self.bomContent);
+   //     console.log(self.bomContent);
+        this.bomContent = self.bomContent;
+        for(let idx=0 ; idx < this.bomContent.length ; idx++) {
+          const item:any  = this.bomContent[idx];
+          var data : any[] = [] ;
+          data.push(item[0]);
+          data.push(item[6]);
+          data.push(item[5]);
+          data.push(item[1]);
+          data.push(item[2]);
+          data.push(item[3]);
+          data.push(item[4]);
+          if( item[6] != null && item[6].length > 0  ){
 
-       this.bomContent.forEach(item => {
-        var temp = [] ;
-        temp.push(item[0]) ;
-        temp.push(item[6]) ;
-        temp.push(item[5]) ;
-        temp.push(item[1]) ;
-        temp.push(item[2]) ;
-        temp.push(item[3]) ;
-        temp.push(item[4]) ;
-        this.resultData.push(temp);})
+            this.resultData.push(data);
+          }
 
-        this.bomContent = self.resultData ;
-        console.log(self.bomContent);
+        }
+        console.log(this.resultData);
       }
       fileReader.readAsBinaryString(file);
-    }
 
+
+    }
 
 
     remove_non_ascii(str:string) {
@@ -212,10 +218,10 @@ onBuildBom(evt:any) {
      if(this.bomContent[i][2] !== undefined && this.bomContent[i][2] !== null) {
       if(this.bomContent[i][2].toString()[0] === "R") {
         if(_isNumberValue(this.bomContent[i][2].toString()[1])) {
-           const hd = "CR" ;
-           const many = "1" ;
-       //    const value = this.getResisterValue(this.bomContent[i][3]) ;
-      //     debugger
+          const hd = "CR" ;
+          const many = "1" ;
+           const value = this.getResisterValue(this.bomContent[i][3]) ;
+     //      debugger
            // console.log(i) ;
            // debugger
         }
@@ -225,12 +231,11 @@ onBuildBom(evt:any) {
 
   }
 
-  this.exportArrayToExcel(this.bomContent, this.bomFileName.replace('.',''));
-  console.log(this.bomContent);
+  this.exportArrayToExcel(this.resultData, this.bomFileName.replace('.',''));
+  console.log(this.resultData);
 }
 
 
 
 
 }
-
