@@ -87,7 +87,16 @@ export class BuildBomComponent implements OnInit {
               let wordWrap: any= self.bomContent?.slice(-1).pop();
               wordWrap[2] = wordWrap[2] + items[2].substring(0,items[2].length);
             } else {
-             self.bomContent.push(items);
+              if(items.length >= 7) {
+                if(!items[2].includes("NC") && !items[3].includes("NC(") && items[6] !=="NC") {
+                  console.log(items);
+                  self.bomContent.push(items);
+                }
+              }else{
+                self.bomContent.push(items);
+              }
+
+
             }
 
           }
