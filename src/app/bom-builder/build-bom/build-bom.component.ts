@@ -82,11 +82,13 @@ export class BuildBomComponent implements OnInit {
           }
 
 
-          if(items.length > 1) {
+          if(items.length >= 1) {
             if(items.length === 3) { // sendond line of BOM
               let wordWrap: any= self.bomContent?.slice(-1).pop();
               console.log(wordWrap[2]);
-              var charTail = wordWrap[2].substr(wordWrap[2].indexOf(wordWrap[2].length), 1);
+
+           //   var charTail = wordWrap[2].substr(wordWrap[2].indexOf(wordWrap[2].length-1), 1);
+              var charTail = wordWrap[2].charAt(wordWrap[2].length-1);
               console.log(charTail);
               if(charTail === ",") {
                 console.log(wordWrap[2]);

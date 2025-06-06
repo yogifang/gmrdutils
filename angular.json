@@ -109,5 +109,7 @@
       }
     }
   },
-  "defaultProject": "GmRdUtils"
+  "cli": {
+    "analytics": "e2801d43-adac-48b0-930c-951e4b3475bf"
+  }
 }
